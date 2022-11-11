@@ -12,29 +12,43 @@ const options = {
 	cert: fs.readFileSync(process.env.HTTPS_CERT),
 };
 
-const https_svr = https.createServer(options, (req, res) => {
-	//サーバの基本的なレスポンスはここで整形
-	fs.readFile("./index.html", (err, content) => {
-		if(err){
-			if(err.code == "ENOENT"){
-				//404
+function server_func(req, res){
+	if(req.url.match(/\/.*\.js/)){
+		let resource = req.url.substr(req.url.lastIndexOf("/"));
+		fs.readFile(__dirname+"/../front/dist"+resource, (err, content) => {
+			if(!err){
+				res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+				res.end(content, "utf-8");
 			}else{
-				//読み込めない
-				res.writeHead(500);
-				res.end('Sorry, check with the site admin for error: '+err.code+' ..\n');
+				res.writeHead(404);
 			}
+		});
+		//readFileで採ってきてtext/plainで返す
+	}else{
+		if(){
+
 		}else{
-			//jsもhtmlが出てしまう
-			if(req.url.match(/\/.*\.js/)){
-				let src = req.url.lastIndexOf("/");
-				console.log(src);
-				console.log(req.url);
-				//readFileで採ってきてtext/plainで返す
-			}
-			res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-			res.end(content, "utf-8");
+			fs.readFile("./index.html", (err, content) => {
+				if(err){
+					if(err.code == "ENOENT"){
+						//404
+					}else{
+						//読み込めない
+						res.writeHead(500);
+						res.end('Sorry, check with the site admin for error: '+err.code+' ..\n');
+					}
+				}else{
+					//jsもhtmlが出てしまう
+					res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+					res.end(content, "utf-8");
+				}
+			});
 		}
-	});
+	}
+}
+
+const https_svr = https.createServer(options, (req, res) => {
+	server_func(req, res);
 });
 
 https_svr.listen(8443, hostname, (response) => {
@@ -43,21 +57,7 @@ https_svr.listen(8443, hostname, (response) => {
 });
 
 const http_svr = http.createServer(options, (req, res) => {
-	//サーバの基本的なレスポンスはここで整形
-	fs.readFile("./index.html", (err, content) => {
-		if(err){
-			if(err.code == "ENOENT"){
-				//404
-			}else{
-				//読み込めない
-				res.writeHead(500);
-				res.end('Sorry, check with the site admin for error: '+err.code+' ..\n');
-			}
-		}else{
-			res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-			res.end(content, "utf-8");
-		}
-	});
+	server_func(req, res);
 });
 
 http_svr.listen(8080, hostname, (response) => {

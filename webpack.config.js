@@ -1,6 +1,6 @@
-const webpack = require("webpack");
+//const webpack = require("webpack");
 const path = require("path");
-
+const {VueLoaderPlugin} = require("vue-loader");
 module.exports = {
 	entry:{
 		"front": "./src/front/front.js"
@@ -10,14 +10,19 @@ module.exports = {
 		filename:"[name].js"
 	},
 	resolve:{
-		extensions: ["", ".js"]
+		extensions: ["", ".js", ".vue"]
 	},
 	devtool: "inline-source-map",
 	module:{
 		rules:[
 			{
 				test: /\.js$/,
+				exclude: /node_modules/,
 				loader: "babel-loader"
+			},
+			{
+				test:/\.vue$/,
+				loader: "vue-loader"
 			},
 			{
 				test: /\.css$/,
@@ -27,5 +32,8 @@ module.exports = {
 				]
 			}
 		]
-	}
+	},
+	plugins:[
+		new VueLoaderPlugin()
+	]
 }
