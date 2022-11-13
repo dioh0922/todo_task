@@ -25,7 +25,7 @@ function server_func(req, res){
 		});
 		//readFileで採ってきてtext/plainで返す
 	}else{
-		if(){
+		if(false){
 
 		}else{
 			fs.readFile("./index.html", (err, content) => {
