@@ -1,17 +1,20 @@
 
-import {createApp} from 'vue';
-import App from "./component/app.vue";
+import {createApp} from 'vue/dist/vue.esm-bundler';	//webpack等のバンドラで使う用
+import App from "./component/App.vue";
+//import Form from "./component/Form.vue";
+
+/*
 const app_main = createApp({
 	mounted(){
-		//git rm --cached file-not-to-track.html
-		alert("create");
+		//alert("create");
 	}
 });
+*/
 
+const app_main = createApp(App);
+//app_main.component("App", App);
 app_main.mount("#container");
 
-
 (window.onload = () => {
-	//container
-	alert("load");
+	//alert("load");
 });
