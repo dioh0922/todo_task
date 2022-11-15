@@ -6,7 +6,6 @@ const https = require("https");
 const http = require("http");
 const hostname = "localhost";
 const fs = require("fs");
-const port = 3000;
 const options = {
 	key: fs.readFileSync(process.env.HTTPS_KEY),
 	cert: fs.readFileSync(process.env.HTTPS_CERT),
@@ -25,8 +24,16 @@ function server_func(req, res){
 		});
 		//readFileで採ってきてtext/plainで返す
 	}else{
-		if(false){
-
+		if(req.url.match(/Task/)){
+			const mongodb = require("mongodb");
+			const Client = mongodb.MongoClient;
+			const assert = require("assert");
+			Client.connect("mongodb://localhost:27017/task", (err, db) => {
+				console.log(err);
+				console.log("con");
+				db.close();
+			})
+			console.log(req.url);
 		}else{
 			fs.readFile("./index.html", (err, content) => {
 				if(err){
