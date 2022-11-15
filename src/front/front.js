@@ -1,6 +1,7 @@
 
 import {createApp} from 'vue/dist/vue.esm-bundler';	//webpack等のバンドラで使う用
 import App from "./component/App.vue";
+
 //import Form from "./component/Form.vue";
 
 /*

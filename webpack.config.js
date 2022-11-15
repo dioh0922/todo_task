@@ -63,7 +63,7 @@ module.exports = {
 	plugins:[
 		new VueLoaderPlugin(),
 		new webpack.ProvidePlugin({
-			process: "process/browser",
+			//process: "process/browser", //axiosの依存用にコメントアウト
 		}),
 	],
 }
