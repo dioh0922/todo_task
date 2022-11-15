@@ -1,6 +1,8 @@
 {
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "forever start ./src/svr/main.js",
+		"restart": "forever restart ./src/svr/main.js",
 		"dev": "webpack --mode development",
 		"prod": "webpack --mode production"
 	},
