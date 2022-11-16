@@ -12,7 +12,7 @@
  export default {
 	 props:["list"],
 	 mounted(){
-		 alert("form");
+		 //alert("form");
 	 },
  	data(){
  		return {
