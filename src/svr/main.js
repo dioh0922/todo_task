@@ -11,6 +11,7 @@ const options = {
 	cert: fs.readFileSync(process.env.HTTPS_CERT),
 };
 
+
 function server_func(req, res){
 	if(req.url.match(/\/.*\.js/)){
 		let resource = req.url.substr(req.url.lastIndexOf("/"));
@@ -26,14 +27,41 @@ function server_func(req, res){
 	}else{
 		if(req.url.match(/Task/)){
 			const mongodb = require("mongodb");
-			const Client = mongodb.MongoClient;
-			const assert = require("assert");
+			const Client = new mongodb.MongoClient("mongodb://localhost:27017");
+			let str = "init \n";
+			async function run(){
+				try{
+
+					const database = Client.db();
+					const collection = database.collections((e, r) => {
+						console.log(e);
+						console.log(r);
+					});
+					/*
+					for await (const item of collection){
+						console.log(item);
+					}
+					*/
+					Client.close();
+				}finally{
+				}
+			}
+			run().catch(console.dir);
+
+			/*
 			Client.connect("mongodb://localhost:27017/task", (err, db) => {
-				console.log(err);
-				console.log("con");
+				if(!err){
+					const collection = db.collection("test").find().toArray((find_err, find_res)=>{
+						console.log(find_err);
+						console.log(find_res);
+					});
+				}
 				db.close();
-			})
-			console.log(req.url);
+			});
+			*/
+			str += "end\n";
+			res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+			res.end(str, "utf-8");
 		}else{
 			fs.readFile("./index.html", (err, content) => {
 				if(err){
