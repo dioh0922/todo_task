@@ -26,13 +26,45 @@ function server_func(req, res){
 		//readFileで採ってきてtext/plainで返す
 	}else{
 		if(req.url.match(/Task/)){
+			let result = [];
 			const mongodb = require("mongodb");
+
 			const Client = new mongodb.MongoClient("mongodb://localhost:27017");
 			let str = "init \n";
 			async function run(){
 				try{
+					await Client.connect();
 
-					const database = Client.db();
+					/*
+					const database = await Client.db().admin().listDatabases();
+					database.databases.forEach(db => console.log(db));
+					*/
+
+					const db = await Client.db("task");
+
+					/*
+					const collection = await db.collections();
+					collection.forEach(item => console.log(item));
+					*/
+
+					const col = await db.listCollections().toArray();
+					//collections(tableまで取得する)
+					//collectionsにdocumentsがそれぞれ生じる
+					col.forEach(item => {
+						result.push(item.name);
+						//console.log(item.name);
+					});
+					//console.log(result);
+					//console.log(col);
+
+
+
+					/*
+					const database = await Client.db().admin().listDatabases();
+					database.databases.forEach(db => console.log(db));
+
+					//const database = Client.db();
+					/*
 					const collection = database.collections((e, r) => {
 						console.log(e);
 						console.log(r);
@@ -42,26 +74,27 @@ function server_func(req, res){
 						console.log(item);
 					}
 					*/
-					Client.close();
+
+				}catch(e){
+					console.log(e);
 				}finally{
+					Client.close();
+					console.log(result);
+
+					str += "end\n";
+					res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+					res.end(JSON.stringify(result), "utf-8");
 				}
 			}
 			run().catch(console.dir);
 
+			console.log(result);
+
 			/*
-			Client.connect("mongodb://localhost:27017/task", (err, db) => {
-				if(!err){
-					const collection = db.collection("test").find().toArray((find_err, find_res)=>{
-						console.log(find_err);
-						console.log(find_res);
-					});
-				}
-				db.close();
-			});
-			*/
 			str += "end\n";
 			res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
 			res.end(str, "utf-8");
+			*/
 		}else{
 			fs.readFile("./index.html", (err, content) => {
 				if(err){
