@@ -26,6 +26,20 @@ function server_func(req, res){
 		//readFileで採ってきてtext/plainで返す
 	}else{
 		if(req.url.match(/Task/)){
+			const Theme = require("./Theme");
+			const theme = new Theme();
+			let result = [];
+			async function getCollection(){
+				try{
+					result = await theme.getAll();
+				}finally{
+					theme.close();
+				}
+				res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+				res.end(JSON.stringify(result), "utf-8");
+			}
+			getCollection().catch(console.dir);
+/*
 			let result = [];
 			const mongodb = require("mongodb");
 
@@ -39,14 +53,14 @@ function server_func(req, res){
 					const database = await Client.db().admin().listDatabases();
 					database.databases.forEach(db => console.log(db));
 					*/
-
+/*
 					const db = await Client.db("task");
 
 					/*
 					const collection = await db.collections();
 					collection.forEach(item => console.log(item));
 					*/
-
+/*
 					const col = await db.listCollections().toArray();
 					//collections(tableまで取得する)
 					//collectionsにdocumentsがそれぞれ生じる
@@ -74,7 +88,7 @@ function server_func(req, res){
 						console.log(item);
 					}
 					*/
-
+/*
 				}catch(e){
 					console.log(e);
 				}finally{
@@ -87,14 +101,9 @@ function server_func(req, res){
 				}
 			}
 			run().catch(console.dir);
-
 			console.log(result);
+*/
 
-			/*
-			str += "end\n";
-			res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-			res.end(str, "utf-8");
-			*/
 		}else{
 			fs.readFile("./index.html", (err, content) => {
 				if(err){
