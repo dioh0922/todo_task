@@ -33,9 +33,9 @@ function server_func(req, res){
 			switch(req.method){
 				case "GET":
 					async function getCollection(){
+						const Theme = require("./Theme");
+						const theme = new Theme("task");
 						try{
-							const Theme = require("./Theme");
-							const theme = new Theme();
 							result = await theme.getAll();
 						}finally{
 							theme.close();
@@ -49,7 +49,7 @@ function server_func(req, res){
 					async function getTask(){
 						try{
 							const Task = require("./Task");
-							const task = new Task();
+							const task = new Task("task");
 							result = await Task.getAll();
 						}finally{
 							task.close();
