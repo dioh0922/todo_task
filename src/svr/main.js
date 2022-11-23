@@ -6,6 +6,7 @@ const https = require("https");
 const http = require("http");
 const hostname = "localhost";
 const fs = require("fs");
+const url = require("url");
 const options = {
 	key: fs.readFileSync(process.env.HTTPS_KEY),
 	cert: fs.readFileSync(process.env.HTTPS_CERT),
@@ -13,7 +14,8 @@ const options = {
 
 
 function server_func(req, res){
-	if(req.url.match(/\/.*\.js/)){
+	let url_parts = url.parse(req.url);
+	if(url_parts.pathname.match(/\/.*\.js/)){
 		let resource = req.url.substr(req.url.lastIndexOf("/"));
 		fs.readFile(__dirname+"/../front/dist"+resource, (err, content) => {
 			if(!err){
@@ -25,84 +27,42 @@ function server_func(req, res){
 		});
 		//readFileで採ってきてtext/plainで返す
 	}else{
-		if(req.url.match(/Task/)){
-			const Theme = require("./Theme");
-			const theme = new Theme();
+		if(url_parts.pathname == "/Task"){
+			console.log(req.method);
 			let result = [];
-			async function getCollection(){
-				try{
-					result = await theme.getAll();
-				}finally{
-					theme.close();
-				}
-				res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-				res.end(JSON.stringify(result), "utf-8");
-			}
-			getCollection().catch(console.dir);
-/*
-			let result = [];
-			const mongodb = require("mongodb");
-
-			const Client = new mongodb.MongoClient("mongodb://localhost:27017");
-			let str = "init \n";
-			async function run(){
-				try{
-					await Client.connect();
-
-					/*
-					const database = await Client.db().admin().listDatabases();
-					database.databases.forEach(db => console.log(db));
-					*/
-/*
-					const db = await Client.db("task");
-
-					/*
-					const collection = await db.collections();
-					collection.forEach(item => console.log(item));
-					*/
-/*
-					const col = await db.listCollections().toArray();
-					//collections(tableまで取得する)
-					//collectionsにdocumentsがそれぞれ生じる
-					col.forEach(item => {
-						result.push(item.name);
-						//console.log(item.name);
-					});
-					//console.log(result);
-					//console.log(col);
-
-
-
-					/*
-					const database = await Client.db().admin().listDatabases();
-					database.databases.forEach(db => console.log(db));
-
-					//const database = Client.db();
-					/*
-					const collection = database.collections((e, r) => {
-						console.log(e);
-						console.log(r);
-					});
-					/*
-					for await (const item of collection){
-						console.log(item);
+			switch(req.method){
+				case "GET":
+					async function getCollection(){
+						try{
+							const Theme = require("./Theme");
+							const theme = new Theme();
+							result = await theme.getAll();
+						}finally{
+							theme.close();
+						}
+						res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+						res.end(JSON.stringify(result), "utf-8");
 					}
-					*/
-/*
-				}catch(e){
-					console.log(e);
-				}finally{
-					Client.close();
-					console.log(result);
+					getCollection().catch(console.dir);
+					break;
+				case "POST":
+					async function getTask(){
+						try{
+							const Task = require("./Task");
+							const task = new Task();
+							result = await Task.getAll();
+						}finally{
+							task.close();
+						}
+						res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+						res.end(JSON.stringify(result), "utf-8");
+					}
+					getTask().catch(console.dir);
+					break;
+				default:
+					break;
 
-					str += "end\n";
-					res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-					res.end(JSON.stringify(result), "utf-8");
-				}
 			}
-			run().catch(console.dir);
-			console.log(result);
-*/
 
 		}else{
 			fs.readFile("./index.html", (err, content) => {
