@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<Form v-bind:list="list"></Form>
+		<Form v-bind:list="list" v-on:select-theme="getTaskList"></Form>
 	</div>
 </template>
 
@@ -8,16 +8,24 @@
  import Form from "./Form.vue";
  import axios from "axios";
  export default {
-	 mounted(){
-		 axios.get("./Task").then(res => {
-			 console.log(res);
-		 }).catch(er => {
+	mounted(){
+	 axios.get("./Task").then(res => {
+		 this.list = res.data;
+	 }).catch(er => {
 
-		 });
-		 this.list = [
-			 {id:0, label:"test"},{id:1, label:"test1"}
-		 ];
-	 },
+	 });
+	},
+	methods:{
+		 getTaskList(e){
+			 let request = new FormData();
+			 request.append("theme", e);
+			 axios.post("./Task", request).then(res => {
+				 
+			 }).catch(er => {
+
+			 });
+		 }
+	},
  	data(){
  		return {
  			list: []

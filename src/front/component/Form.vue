@@ -1,9 +1,9 @@
 <template>
 	<div>
-		Vue テンプレート<br>
-		{{disp}}
 		<ul>
-			<li v-for="item in list">{{item.id}}:{{item.label}}</li>
+			<li v-for="item in list">
+				<a v-on:click.prevent="$emit('select-theme', item)">{{item}}</a>
+			</li>
 		</ul>
 	</div>
 </template>
@@ -14,9 +14,10 @@
 	 mounted(){
 		 //alert("form");
 	 },
+	 methods:{
+	 },
  	data(){
  		return {
- 			disp: "form"
  		};
  	}
  }
