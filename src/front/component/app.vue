@@ -17,10 +17,8 @@
 	},
 	methods:{
 		 getTaskList(e){
-			 let request = new FormData();
-			 request.append("theme", e);
-			 axios.post("./Task", request).then(res => {
-				 
+			 axios.post("./Task", {theme: e}).then(res => {
+
 			 }).catch(er => {
 
 			 });
