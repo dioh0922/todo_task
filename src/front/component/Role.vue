@@ -1,8 +1,8 @@
 <template>
 	<div>
-		{{role.theme}}
+		{{role.company}}
 		<ul>
-			<li v-for="item in role.list">{{item.title}}:{{item.date}}</li>
+			<li v-for="item in role.list">{{item}}</li>
 		</ul>
 	</div>
 </template>

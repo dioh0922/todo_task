@@ -7,8 +7,8 @@ class Role extends MongoBase{
 		const tasks = collection.find({});
 
 		await tasks.forEach(item => {
-			if(item.todo != null){
-				result.push(item.todo);
+			if(item.role != null){
+				result.push(item.role);
 			}
 		});
 		return result;
