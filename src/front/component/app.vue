@@ -1,24 +1,27 @@
 <template>
 	<div>
-		<Form v-bind:list="list" v-on:select-theme="getTaskList"></Form>
+		<Career v-bind:list="career" v-on:select-theme="getTaskList"></Career>
+		<Role v-bind:role="role"></Role>
 	</div>
 </template>
 
 <script>
- import Form from "./Form.vue";
+ import Career from "./Career.vue";
+ import Role from "./Role.vue";
  import axios from "axios";
  export default {
 	mounted(){
-	 axios.get("./Task").then(res => {
-		 this.list = res.data;
+	 axios.get("./Career").then(res => {
+		 this.career = res.data;
 	 }).catch(er => {
 
 	 });
 	},
 	methods:{
 		 getTaskList(e){
-			 axios.post("./Task", {theme: e}).then(res => {
-
+			 this.role.theme = e;
+			 axios.post("./Career", {theme: e}).then(res => {
+				 this.role.list = res.data;
 			 }).catch(er => {
 
 			 });
@@ -26,11 +29,16 @@
 	},
  	data(){
  		return {
- 			list: []
+			career: [],
+			role: {
+				list: [],
+				theme:""
+			}
  		};
  	},
 	components:{
-		Form
+		Career,
+		Role
 	}
  }
 </script>

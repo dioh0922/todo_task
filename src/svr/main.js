@@ -22,7 +22,9 @@ function server_func(req, res){
 		body += chunk;
 	});
 	req.on("end", () => {
-		req_json = JSON.parse(body);
+		if(body != ""){
+			req_json = JSON.parse(body);
+		}
 		if(url_parts.pathname.match(/\/.*\.js/)){
 			let resource = req.url.substr(req.url.lastIndexOf("/"));
 			fs.readFile(__dirname+"/../front/dist"+resource, (err, content) => {
@@ -35,17 +37,17 @@ function server_func(req, res){
 			});
 			//readFileで採ってきてtext/plainで返す
 		}else{
-			if(url_parts.pathname == "/Task"){
+			if(url_parts.pathname == "/Career"){
 				let result = [];
 				switch(req.method){
 					case "GET":
 						async function getCollection(){
-							const Theme = require("./Theme");
-							const theme = new Theme("task");
+							const Career = require("./Career");
+							const career = new Career("career");
 							try{
-								result = await theme.getAll();
+								result = await career.getAll();
 							}finally{
-								theme.close();
+								career.close();
 							}
 							res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
 							res.end(JSON.stringify(result), "utf-8");
@@ -54,15 +56,14 @@ function server_func(req, res){
 						break;
 					case "POST":
 						async function getTask(){
-							const Task = require("./Task");
-							const task = new Task("task");
+							const Role = require("./Role");
+							const role = new Role("career");
 							try{
-								console.log(req_json.theme);
 								if(req_json.theme != void 0){
-									result = await task.getAll(req_json.theme);
+									result = await role.getAll(req_json.theme);
 								}
 							}finally{
-								task.close();
+								role.close();
 							}
 							res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
 							res.end(JSON.stringify(result), "utf-8");

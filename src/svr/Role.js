@@ -1,5 +1,5 @@
 const MongoBase = require("./MongoConnect");
-class Task extends MongoBase{
+class Role extends MongoBase{
 	async getAll(theme){
 		let result = [];
 		const collection = await this.database.collection(theme);
@@ -7,7 +7,7 @@ class Task extends MongoBase{
 		const tasks = collection.find({});
 
 		await tasks.forEach(item => {
-			if(item.todo != null){				
+			if(item.todo != null){
 				result.push(item.todo);
 			}
 		});
@@ -15,4 +15,4 @@ class Task extends MongoBase{
 	}
 }
 
-module.exports = Task;
+module.exports = Role;

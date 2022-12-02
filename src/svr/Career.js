@@ -1,5 +1,5 @@
 const MongoBase = require("./MongoConnect");
-class Theme extends MongoBase{
+class Career extends MongoBase{
 	async getAll(){
 		let result = [];
 		const col = await this.database.listCollections().toArray();
@@ -10,4 +10,4 @@ class Theme extends MongoBase{
 	}
 }
 
-module.exports = Theme;
+module.exports = Career;
