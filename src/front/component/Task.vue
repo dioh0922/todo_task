@@ -1,19 +1,19 @@
 <template>
 	<div>
-		{{role.company}}
+		{{task.theme}}
 		<ul>
-			<li v-for="item in role.list">
-				{{item.role}}
-				<Project v-bind:project="item.tech"></Project>
+			<li v-for="item in task.list">
+				{{item}}
 			</li>
 		</ul>
+		<Project v-bind:project="task"></Project>
 	</div>
 </template>
 
 <script>
 	import Project from "./Project.vue";
 	export default {
-		props:["role"],
+		props:["task"],
 		data(){
 			return {
 

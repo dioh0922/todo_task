@@ -37,17 +37,17 @@ function server_func(req, res){
 			});
 			//readFileで採ってきてtext/plainで返す
 		}else{
-			if(url_parts.pathname == "/Career"){
+			if(url_parts.pathname == "/Task"){
 				let result = [];
 				switch(req.method){
 					case "GET":
 						async function getCollection(){
-							const Career = require("./Career");
-							const career = new Career("career");
+							const Theme = require("./Theme");
+							const theme = new Theme("task");
 							try{
-								result = await career.getAll();
+								result = await theme.getAll();
 							}finally{
-								career.close();
+								theme.close();
 							}
 							res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
 							res.end(JSON.stringify(result), "utf-8");
@@ -56,14 +56,14 @@ function server_func(req, res){
 						break;
 					case "POST":
 						async function getTask(){
-							const Role = require("./Role");
-							const role = new Role("career");
+							const Task = require("./Task");
+							const task = new Task("task");
 							try{
 								if(req_json.theme != void 0){
-									result = await role.getAll(req_json.theme);
+									result = await task.getAll(req_json.theme);
 								}
 							}finally{
-								role.close();
+								task.close();
 							}
 							res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
 							res.end(JSON.stringify(result), "utf-8");

@@ -1,21 +1,20 @@
 <template>
 	<div>
+		<h1>タイトル</h1>
+		<p>タスク内容</p>
+		<p>記録日</p>
+		<textarea placeholder="内容"></textarea>
 		<table>
-			<thead>
-				<tr>
-					<th>言語/フレームワーク</th>
-					<th>概要</th>
-					<th>担当内容</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr v-for="item in project">
-					<td><p v-for="tech in item.lang">{{tech}}</p></td>
-					<td>{{item.detail}}</td>
-					<td>{{item.task}}</td>
-				</tr>
-			</tbody>
+			<tr>
+				<td>ブレスト1</td>
+				<td>内容</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>内容</td>
+			</tr>
 		</table>
+
 	</div>
 </template>
 
