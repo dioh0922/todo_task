@@ -13,7 +13,6 @@ const options = {
 	cert: fs.readFileSync(process.env.HTTPS_CERT),
 };
 
-
 function server_func(req, res){
 	let url_parts = url.parse(req.url);
 	let body = "";
@@ -74,7 +73,26 @@ function server_func(req, res){
 						break;
 
 				}
-
+			}else if(url_parts.pathname == "/Theme"){
+				switch(req.method){
+					case "POST":
+						async function createTheme(){
+							const Theme = require("./Theme");
+							const theme = new Theme("task");
+							try{
+								//エラーハンドリングするには?
+								await theme.insertTheme(req_json.theme);
+							}finally{
+								theme.close();
+							}
+							res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+							res.end(JSON.stringify({result:1}), "utf-8");
+						}
+						createTheme().catch(console.dir);
+						break;
+					default:
+						break;
+				}
 			}else{
 				fs.readFile("./index.html", (err, content) => {
 					if(err){

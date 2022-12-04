@@ -9,6 +9,10 @@ class Theme extends MongoBase{
 		});
 		return result;
 	}
+	async insertTheme(theme){
+		//コールバックするとawaitで待てない
+		await this.database.createCollection(theme);
+	}
 }
 
 module.exports = Theme;
