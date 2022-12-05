@@ -1,17 +1,18 @@
 <template>
 	<div>
-		<h1>タイトル</h1>
+		{{project}}
+		<h1>{{project.title}}</h1>
 		<p>タスク内容</p>
-		<p>記録日</p>
+		<p>開始：{{project.date}}</p>
 		<textarea placeholder="内容"></textarea>
 		<table>
-			<tr>
+			<tr v-for="log in project.log">
 				<td>ブレスト1</td>
-				<td>内容</td>
+				<td>{{log}}</td>
 			</tr>
-			<tr>
+			<tr v-for="ref in project.ref">
 				<td>2</td>
-				<td>内容</td>
+				<td>{{ref}}</td>
 			</tr>
 		</table>
 
@@ -21,9 +22,6 @@
 <script>
  export default {
 	 props:["project"],
-	 mounted(){
-		 //alert("form");
-	 },
 	 methods:{
 	 },
  	data(){
