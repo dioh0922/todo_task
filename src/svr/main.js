@@ -43,19 +43,6 @@ function server_func(req, res){
 			if(url_parts.pathname == "/Task"){
 				let result = [];
 				switch(req.method){
-					case "GET":
-						async function getCollection(){
-							const theme = new Theme("task");
-							try{
-								result = await theme.getAll();
-							}finally{
-								theme.close();
-							}
-							res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-							res.end(JSON.stringify(result), "utf-8");
-						}
-						getCollection().catch(console.dir);
-						break;
 					case "POST":
 						async function getTask(){
 							const task = new Task("task");
@@ -77,6 +64,19 @@ function server_func(req, res){
 				}
 			}else if(url_parts.pathname == "/Theme"){
 				switch(req.method){
+					case "GET":
+						async function getCollection(){
+							const theme = new Theme("task");
+							try{
+								result = await theme.getAll();
+							}finally{
+								theme.close();
+							}
+							res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+							res.end(JSON.stringify(result), "utf-8");
+						}
+						getCollection().catch(console.dir);
+						break;
 					case "POST":
 						async function createTheme(){
 							const theme = new Theme("task");
