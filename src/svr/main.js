@@ -8,6 +8,10 @@ const hostname = "localhost";
 const fs = require("fs");
 const url = require("url");
 const querystring = require('querystring');
+
+const Theme = require("./Theme");
+const Task = require("./Task");
+
 const options = {
 	key: fs.readFileSync(process.env.HTTPS_KEY),
 	cert: fs.readFileSync(process.env.HTTPS_CERT),
@@ -41,7 +45,6 @@ function server_func(req, res){
 				switch(req.method){
 					case "GET":
 						async function getCollection(){
-							const Theme = require("./Theme");
 							const theme = new Theme("task");
 							try{
 								result = await theme.getAll();
@@ -55,7 +58,6 @@ function server_func(req, res){
 						break;
 					case "POST":
 						async function getTask(){
-							const Task = require("./Task");
 							const task = new Task("task");
 							try{
 								if(req_json.theme != void 0){
@@ -77,16 +79,17 @@ function server_func(req, res){
 				switch(req.method){
 					case "POST":
 						async function createTheme(){
-							const Theme = require("./Theme");
 							const theme = new Theme("task");
 							try{
-								//エラーハンドリングするには?
 								await theme.insertTheme(req_json.theme);
+								res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+								res.end(JSON.stringify({result:1}), "utf-8");
+							}catch(e){
+								res.writeHead(500, {"Content-Type": "text/html; charset=utf-8"});
+								res.end("faild create theme", "utf-8");
 							}finally{
 								theme.close();
 							}
-							res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-							res.end(JSON.stringify({result:1}), "utf-8");
 						}
 						createTheme().catch(console.dir);
 						break;

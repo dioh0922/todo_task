@@ -10,6 +10,7 @@
 	 methods:{
 		 save(){
 			 this.$emit("add-theme", this.theme_title);
+			 this.theme_title = "";
 		 }
 	 },
  	data(){

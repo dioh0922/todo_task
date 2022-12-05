@@ -11,17 +11,20 @@
  import axios from "axios";
  export default {
 	mounted(){
-	 axios.get("./Task").then(res => {
-		 this.theme = res.data;
-	 }).catch(er => {
-
-	 });
+		this.getThemeList();
 	},
 	methods:{
+		getThemeList(){
+			axios.get("./Task").then(res => {
+				this.theme = res.data;
+			}).catch(er => {
+
+			});
+		},
 		addTheme(e){
 			axios.post("./Theme", {theme: e}).then(res => {
 				if(res.data.result == 1){
-
+					this.getThemeList();
 				}else{
 					throw new Error(res.data.message);
 				}

@@ -10,8 +10,13 @@ class Theme extends MongoBase{
 		return result;
 	}
 	async insertTheme(theme){
-		//コールバックするとawaitで待てない
-		await this.database.createCollection(theme);
+		let result = false;
+		await this.database.createCollection(theme).then((res) => {
+			result = true;
+		}).catch((er) => {
+			throw new Error(er);
+		});
+		return result;
 	}
 }
 
