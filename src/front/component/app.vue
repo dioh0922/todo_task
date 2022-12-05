@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<Theme v-bind:list="theme" v-on:select-theme="getTaskList" v-on:add-theme="addTheme"></Theme>
-		<Task v-bind:task="task"></Task>
+		<Task v-bind:task="task" v-on:add-task="addTask"></Task>
 	</div>
 </template>
 
@@ -15,7 +15,7 @@
 	},
 	methods:{
 		getThemeList(){
-			axios.get("./Task").then(res => {
+			axios.get("./Theme").then(res => {
 				this.theme = res.data;
 			}).catch(er => {
 
@@ -37,6 +37,13 @@
 			axios.post("./Task", {theme: e}).then(res => {
 				this.task.list = res.data;
 			}).catch(er => {
+			});
+		},
+		addTask(e){
+			axios.post("", e).then(res => {
+
+			}).catch(er => {
+
 			});
 		}
 	},

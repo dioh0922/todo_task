@@ -17,11 +17,13 @@
 				</tr>
 			</tbody>
 		</table>
-		<Project v-show="show" v-bind:project="open_obj"></Project>
+		<AddProject v-on:add-task="$emit('add-task', $event)"/>
+		<Project v-show="show" v-bind:project="open_obj"/>
 	</div>
 </template>
 
 <script>
+	import AddProject from "./AddProject.vue";
 	import Project from "./Project.vue";
 	export default {
 		props:["task"],
@@ -33,13 +35,14 @@
 		},
 		data(){
 			return {
-				open:{
+				open_obj:{
 				},
 				show:false
 			};
 		},
 		components:{
-			Project
+			Project,
+			AddProject
 		}
 	}
 </script>
