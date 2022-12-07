@@ -17,6 +17,11 @@ const options = {
 	cert: fs.readFileSync(process.env.HTTPS_CERT),
 };
 
+function successResponseJSON(res, result){
+	res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+	res.end(JSON.stringify(result), "utf-8");
+}
+
 function errorResponse(res, msg){
 	res.writeHead(500, {"Content-Type": "text/html; charset=utf-8"});
 	res.end(msg, "utf-8");
@@ -62,11 +67,26 @@ function server(req, res){
 							}finally{
 								task.close();
 							}
-							res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-							res.end(JSON.stringify(result), "utf-8");
+							successResponseJSON(res, result);
 						}
 						getTask().catch(console.dir);
 
+						break;
+					case "PUT":
+						async function addTask(){
+							const task = new Task("task");
+							try{
+								if(req_json.theme != ""){
+									await task.addTask(req_json);
+									successResponseJSON(res, {result: 1});
+								}
+							}catch(e){
+								errorResponse(res, e.toString());
+							}finally{
+								task.close();
+							}
+						}
+						addTask().catch(console.dir);
 						break;
 					case "POST":
 					/*
@@ -99,8 +119,7 @@ function server(req, res){
 							}finally{
 								theme.close();
 							}
-							res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-							res.end(JSON.stringify(result), "utf-8");
+							successResponseJSON(res, result);
 						}
 						getCollection().catch(console.dir);
 						break;
@@ -109,8 +128,7 @@ function server(req, res){
 							const theme = new Theme("task");
 							try{
 								await theme.insertTheme(req_json.theme);
-								res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-								res.end(JSON.stringify({result:1}), "utf-8");
+								successResponseJSON(res, {result:1});
 							}catch(e){
 								errorResponse(res, "faild create theme");
 							}finally{

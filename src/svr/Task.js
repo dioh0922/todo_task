@@ -13,6 +13,23 @@ class Task extends MongoBase{
 		});
 		return result;
 	}
+	async addTask(obj){
+		let result = false;
+		const document = {
+			todo:{
+				title: obj.title,
+				summary: obj.summary,
+				date: ""
+			}
+		};
+		await this.database.collection(obj.theme).insertOne(document)
+		.then(res => {
+			result = true;
+		}).catch(er => {
+			throw new Error(er);
+		});
+		return result;
+	}
 }
 
 module.exports = Task;

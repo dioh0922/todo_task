@@ -40,7 +40,9 @@
 			});
 		},
 		addTask(e){
-			axios.post("", e).then(res => {
+			let request = e;
+			request.theme = this.task.theme;
+			axios.put("./Task", request).then(res => {
 
 			}).catch(er => {
 
