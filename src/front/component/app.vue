@@ -34,7 +34,7 @@
 		},
 		getTaskList(e){
 			this.task.theme = e;
-			axios.post("./Task", {theme: e}).then(res => {
+			axios.get("./Task/"+e).then(res => {
 				this.task.list = res.data;
 			}).catch(er => {
 			});
