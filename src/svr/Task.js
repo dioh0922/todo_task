@@ -7,8 +7,8 @@ class Task extends MongoBase{
 		const tasks = collection.find({});
 
 		await tasks.forEach(item => {
-			if(item.todo != null){
-				result.push(item.todo);
+			if(item.title != ""){
+				result.push(item);
 			}
 		});
 		return result;
@@ -16,11 +16,9 @@ class Task extends MongoBase{
 	async addTask(obj){
 		let result = false;
 		const document = {
-			todo:{
-				title: obj.title,
-				summary: obj.summary,
-				date: ""
-			}
+			title: obj.title,
+			summary: obj.summary,
+			date: ""
 		};
 		await this.database.collection(obj.theme).insertOne(document)
 		.then(res => {
