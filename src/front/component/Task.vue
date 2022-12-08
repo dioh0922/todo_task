@@ -20,7 +20,9 @@
 			</table>
 			<AddTask v-on:add-task="$emit('add-task', $event)"/>
 		</div>
-		<Detail v-show="show" v-bind:project="open_obj" v-on:add-log='$emit("add-log", $event)' v-on:add-ref='$emit("add-ref", $event)'/>
+		<Detail v-show="show" v-bind:project="open_obj"
+		v-on:add-log='addLog'
+		v-on:add-ref='addRef'/>
 	</div>
 </template>
 
@@ -34,8 +36,13 @@
 				this.open_obj = e;
 				this.show = true;
 			},
-			add(e){
-				console.log(e);
+			addLog(e){
+				this.$emit("add-log", e);
+				this.open_obj.log.push(e.log);
+			},
+			addRef(e){
+				this.$emit("add-ref", e);
+				this.open_obj.ref.push(e.ref);
 			}
 		},
 		data(){

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<Theme v-bind:list="theme" v-on:select-theme="getTaskList" v-on:add-theme="addTheme"></Theme>
-		<Task v-bind:task="task" v-on:add-task="addTask"></Task>
+		<Task v-bind:task="task" v-on:add-task="addTask" v-on:add-log="addLog" v-on:add-ref="addRef"></Task>
 	</div>
 </template>
 
@@ -47,6 +47,19 @@
 			}).catch(er => {
 
 			});
+		},
+		addLog(e){
+			let request = e;
+			request.theme = this.task.theme;
+			console.log(request);
+			axios.put("./Log", request).then(res => {
+
+			}).catch(er => {
+
+			});
+		},
+		addRef(e){
+			console.log(e);
 		}
 	},
  	data(){

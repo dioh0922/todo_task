@@ -12,7 +12,7 @@
 			</tr>
 			<tr>
 				<td><textarea v-model="log_txt"></textarea></td>
-				<td><button v-on:click='$emit("add-log", this.log_txt)'>+</button></td>
+				<td><button v-on:click='$emit("add-log", {proj_id:this.project._id, log: this.log_txt})'>+</button></td>
 			</tr>
 		</table>
 		\\\\\\\\
@@ -23,7 +23,7 @@
 			</tr>
 			<tr>
 				<td><textarea v-model="ref_txt"></textarea></td>
-				<td><button v-on:click='$emit("add-ref", this.ref_txt)'>+</button></td>
+				<td><button v-on:click='$emit("add-ref", {proj_id:this.project._id, ref: this.ref_txt})'>+</button></td>
 			</tr>
 		</table>
 	</div>
