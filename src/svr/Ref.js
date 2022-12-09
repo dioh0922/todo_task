@@ -1,10 +1,10 @@
 const MongoBase = require("./MongoConnect");
 const ObjectID = require('mongodb').ObjectID;
-class Log extends MongoBase{
-	async addLog(obj){
+class Ref extends MongoBase{
+	async addRef(obj){
 		let result = false;
 		let collection = await this.database.collection(obj.theme);
-		await collection.updateOne({_id:ObjectID(obj.proj_id)},{$push:{log:obj.log}})
+		await collection.updateOne({_id:ObjectID(obj.proj_id)},{$push:{ref:obj.ref}})
 		.then(res => {
 			result = true;
 		}).catch(er => {
@@ -14,4 +14,4 @@ class Log extends MongoBase{
 	}
 }
 
-module.exports = Log;
+module.exports = Ref;

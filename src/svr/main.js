@@ -11,6 +11,8 @@ const querystring = require('querystring');
 
 const Theme = require("./Theme");
 const Task = require("./Task");
+const Ref = require("./Ref");
+const Log = require("./Log");
 
 const options = {
 	key: fs.readFileSync(process.env.HTTPS_KEY),
@@ -136,6 +138,44 @@ function server(req, res){
 							}
 						}
 						createTheme().catch(console.dir);
+						break;
+					default:
+						break;
+				}
+			}else if(url_parts.pathname == "/Log"){
+				switch(req.method){
+					case "PUT":
+						async function addLog(){
+							const log = new Log("task");
+							try{
+								await log.addLog(req_json);
+								successResponseJSON(res, {result:1});
+							}catch(e){
+								errorResponse(res, "faild add log");
+							}finally{
+								log.close();
+							}
+						}
+						addLog().catch(console.dir);
+						break;
+					default:
+						break;
+				}
+			}else if(url_parts.pathname == "/Ref"){
+				switch(req.method){
+					case "PUT":
+						async function addRef(){
+							const ref = new Ref("task");
+							try{
+								await ref.addRef(req_json);
+								successResponseJSON(res, {result: 1});
+							}catch(e){
+								errorResponse(res, "faild add ref");
+							}finally{
+								ref.close();
+							}
+						}
+						addRef().catch(console.dir);
 						break;
 					default:
 						break;

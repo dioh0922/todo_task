@@ -51,15 +51,24 @@
 		addLog(e){
 			let request = e;
 			request.theme = this.task.theme;
-			console.log(request);
 			axios.put("./Log", request).then(res => {
+				if(res.data.result == 1){
 
+				}
 			}).catch(er => {
 
 			});
 		},
 		addRef(e){
-			console.log(e);
+			let request = e;
+			request.theme = this.task.theme;
+			axios.put("./Ref", request).then(res => {
+				if(res.data.result == 1){
+
+				}
+			}).catch(er => {
+
+			});
 		}
 	},
  	data(){

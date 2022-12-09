@@ -12,7 +12,7 @@
 			</tr>
 			<tr>
 				<td><textarea v-model="log_txt"></textarea></td>
-				<td><button v-on:click='$emit("add-log", {proj_id:this.project._id, log: this.log_txt})'>+</button></td>
+				<td><button v-on:click='addLogTxt'>+</button></td>
 			</tr>
 		</table>
 		\\\\\\\\
@@ -23,7 +23,7 @@
 			</tr>
 			<tr>
 				<td><textarea v-model="ref_txt"></textarea></td>
-				<td><button v-on:click='$emit("add-ref", {proj_id:this.project._id, ref: this.ref_txt})'>+</button></td>
+				<td><button v-on:click='addRefTxt'>+</button></td>
 			</tr>
 		</table>
 	</div>
@@ -33,6 +33,14 @@
  export default {
 	 props:["project"],
 	 methods:{
+		 addLogTxt(){
+			 this.$emit("add-log", {proj_id:this.project._id, log: this.log_txt});
+			 this.log_txt = "";
+		 },
+		 addRefTxt(){
+			 this.$emit("add-ref", {proj_id:this.project._id, ref: this.ref_txt});
+			 this.ref_txt = "";
+		 }
 	 },
  	data(){
  		return {
