@@ -22,7 +22,8 @@
 		</div>
 		<Detail v-show="show" v-bind:project="open_obj"
 		v-on:add-log='addLog'
-		v-on:add-ref='addRef'/>
+		v-on:add-ref='addRef'
+		v-on:edit-summary='$emit("edit-summary", $event)'/>
 	</div>
 </template>
 

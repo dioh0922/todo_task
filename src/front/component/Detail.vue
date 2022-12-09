@@ -4,7 +4,8 @@
 		<h1>{{project.title}}</h1>
 		<p>タスク内容</p>
 		<p>開始：{{project.date}}</p>
-		<textarea placeholder="内容"></textarea>
+		<textarea placeholder="内容" v-bind:value="project.summary" v-on:change="editSummary"></textarea>
+		<button v-on:click="saveSummary">+</button>
 		<table >
 			<tr v-for="log in project.log">
 				<td>ブレスト1</td>
@@ -33,6 +34,12 @@
  export default {
 	 props:["project"],
 	 methods:{
+		 editSummary(e){
+			 this.summary = e.target.value;
+		 },
+		 saveSummary(){
+			 this.$emit("edit-summary", {proj_id: this.project._id, summary: this.summary});
+		 },
 		 addLogTxt(){
 			 this.$emit("add-log", {proj_id:this.project._id, log: this.log_txt});
 			 this.log_txt = "";
@@ -44,6 +51,7 @@
 	 },
  	data(){
  		return {
+			summary:"",
 			log_txt:"",
 			ref_txt:"",
  		};
