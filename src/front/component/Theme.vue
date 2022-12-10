@@ -1,6 +1,7 @@
 <template>
 	<div>
-		<AddTheme v-on:add-theme="$emit('add-theme', $event)"/>
+		<input type="button" value="プロジェクト追加" v-on:click="save"/>
+		<input type="text" v-model="theme_title"/>
 		<ul>
 			<li v-for="item in list">
 				<a v-on:click.prevent="$emit('select-theme', item)">{{item}}</a>
@@ -10,20 +11,23 @@
 </template>
 
 <script>
- import AddTheme from "./AddTheme.vue";
  export default {
 	 props:["list"],
 	 mounted(){
 		 //alert("form");
 	 },
 	 methods:{
+		 save(){
+			 this.$emit("add-theme", this.theme_title);
+			 this.theme_title = "";
+		 }
 	 },
  	data(){
  		return {
+			theme_title: ""
  		};
  	},
 	components:{
-		AddTheme
 	}
  }
 </script>

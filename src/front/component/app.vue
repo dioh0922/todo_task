@@ -32,6 +32,9 @@
 
 			});
 		},
+		resetTaskList(){
+			this.getTaskList(this.task.theme);
+		},
 		getTaskList(e){
 			this.task.theme = e;
 			axios.get("./Task/"+e).then(res => {
@@ -43,7 +46,7 @@
 			let request = e;
 			request.theme = this.task.theme;
 			axios.put("./Task", request).then(res => {
-
+				this.resetTaskList();
 			}).catch(er => {
 
 			});
@@ -53,7 +56,7 @@
 			request.theme = this.task.theme;
 			axios.put("./Log", request).then(res => {
 				if(res.data.result == 1){
-
+					this.resetTaskList();
 				}
 			}).catch(er => {
 
@@ -64,14 +67,22 @@
 			request.theme = this.task.theme;
 			axios.put("./Ref", request).then(res => {
 				if(res.data.result == 1){
-
+					this.resetTaskList();
 				}
 			}).catch(er => {
 
 			});
 		},
 		editSummary(e){
-			console.log(e);
+			let request = e;
+			request.theme = this.task.theme;
+			axios.post("./Task",request ).then(res => {
+				if(res.data.result == 1){
+
+				}
+			}).catch(er => {
+
+			});
 		}
 	},
  	data(){

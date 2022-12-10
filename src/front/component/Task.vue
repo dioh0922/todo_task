@@ -18,8 +18,13 @@
 					</tr>
 				</tbody>
 			</table>
-			<AddTask v-on:add-task="$emit('add-task', $event)"/>
+			<div>
+				<textarea v-model="task_title" placeholder="タイトルを入力"></textarea>
+				<textarea v-model="summary" placeholder="タスク概要"></textarea>
+				<button v-on:click="addTask">追加</button>
+			</div>
 		</div>
+
 		<Detail v-show="show" v-bind:project="open_obj"
 		v-on:add-log='addLog'
 		v-on:add-ref='addRef'
@@ -28,11 +33,15 @@
 </template>
 
 <script>
-	import AddTask from "./AddTask.vue";
 	import Detail from "./Detail.vue";
 	export default {
 		props:["task"],
 		methods:{
+			addTask(){
+				this.$emit("add-task", {title: this.task_title, summary:this.summary});
+				this.task_title = "";
+				this.summary = "";
+			},
 			openTask(e){
 				this.open_obj = e;
 				this.show = true;
@@ -48,14 +57,15 @@
 		},
 		data(){
 			return {
+				task_title: "",
+				summary: "",
 				open_obj:{
 				},
 				show:false
 			};
 		},
 		components:{
-			Detail,
-			AddTask
+			Detail
 		}
 	}
 </script>

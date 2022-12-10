@@ -1,32 +1,26 @@
 <template>
 	<div>
-		{{project}}
 		<h1>{{project.title}}</h1>
 		<p>タスク内容</p>
 		<p>開始：{{project.date}}</p>
 		<textarea placeholder="内容" v-bind:value="project.summary" v-on:change="editSummary"></textarea>
 		<button v-on:click="saveSummary">+</button>
-		<table >
-			<tr v-for="log in project.log">
-				<td>ブレスト1</td>
-				<td>{{log}}</td>
-			</tr>
-			<tr>
-				<td><textarea v-model="log_txt"></textarea></td>
-				<td><button v-on:click='addLogTxt'>+</button></td>
-			</tr>
-		</table>
-		\\\\\\\\
-		<table >
-			<tr v-for="ref in project.ref">
-				<td>2</td>
-				<td>{{ref}}</td>
-			</tr>
-			<tr>
-				<td><textarea v-model="ref_txt"></textarea></td>
-				<td><button v-on:click='addRefTxt'>+</button></td>
-			</tr>
-		</table>
+
+		<ul>
+			<li v-for="log in project.log">{{log}}</li>
+			<li>
+				<textarea v-model="log_txt"></textarea>
+				<button v-on:click='addLogTxt'>+</button>
+			</li>
+		</ul>
+		<ul>
+			<li v-for="ref in project.ref">{{ref}}</li>
+			<li>
+				<textarea v-model="ref_txt"></textarea>
+				<button v-on:click='addRefTxt'>+</button>
+			</li>
+		</ul>
+
 	</div>
 </template>
 
