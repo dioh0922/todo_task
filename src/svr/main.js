@@ -91,21 +91,22 @@ function server(req, res){
 						addTask().catch(console.dir);
 						break;
 					case "POST":
-					/*
-						async function getTask(){
+						async function updTask(){
 							const task = new Task("task");
 							try{
 								if(req_json.theme != void 0){
-									result = await task.getAll(req_json.theme);
+									result = await task.updTask(req_json);
+									successResponseJSON(res, {result: 1});
 								}
+							}catch(e){
+								errorResponse(res, "faild update task");
 							}finally{
 								task.close();
 							}
-							res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-							res.end(JSON.stringify(result), "utf-8");
 						}
-						getTask().catch(console.dir);
-						*/
+						updTask().catch(console.dir);
+						break;
+					case "DELETE":
 						break;
 					default:
 						break;
@@ -144,6 +145,10 @@ function server(req, res){
 				}
 			}else if(url_parts.pathname == "/Log"){
 				switch(req.method){
+					case "GET":
+					case "POST":
+					case "DELETE":
+						break;
 					case "PUT":
 						async function addLog(){
 							const log = new Log("task");
@@ -163,6 +168,10 @@ function server(req, res){
 				}
 			}else if(url_parts.pathname == "/Ref"){
 				switch(req.method){
+					case "GET":
+					case "POST":
+					case "DELETE":
+						break;
 					case "PUT":
 						async function addRef(){
 							const ref = new Ref("task");
