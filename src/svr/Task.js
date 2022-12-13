@@ -16,10 +16,11 @@ class Task extends MongoBase{
 	}
 	async addTask(obj){
 		let result = false;
+		let now_date = new Date();
 		const document = {
 			title: obj.title,
 			summary: obj.summary,
-			date: ""
+			date: now_date.getFullYear() + "-" + now_date.getMonth() + "-" + now_date.getDate()
 		};
 		await this.database.collection(obj.theme).insertOne(document)
 		.then(res => {
