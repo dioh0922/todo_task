@@ -12,7 +12,7 @@
 				<tbody>
 					<tr v-for="item in task.list">
 						<td>{{item.title}}</td>
-						<td>{{item.summary}}</td>
+						<td><p v-html="replaceCrlf(item.summary)"></p></td>
 						<td>{{item.date}}</td>
 						<td><button v-on:click="openTask(item)">詳細</button></td>
 					</tr>
@@ -37,6 +37,9 @@
 	export default {
 		props:["task"],
 		methods:{
+			replaceCrlf(str){
+				return str.replace("\n", "<br>");
+			},
 			addTask(){
 				this.$emit("add-task", {title: this.task_title, summary:this.summary});
 				this.task_title = "";
