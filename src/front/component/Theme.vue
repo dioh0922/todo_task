@@ -4,11 +4,13 @@
 			<i class="tiny material-icons">create_new_folder</i>
 		</button>
 		<input type="text" v-model="theme_title"/>
-		<ul>
-			<li v-for="item in list">
-				<a v-on:click.prevent="$emit('select-theme', item)">{{item}}</a>
-			</li>
-		</ul>
+		<div class="pure-menu pure-menu-horizontal">
+			<ul class="pure-menu-list">
+				<li class="pure-menu-item" v-for="item in list">
+					<a class="pure-menu-link" v-on:click.prevent="$emit('select-theme', item)">{{item}}</a>
+				</li>
+			</ul>
+		</div>
 	</div>
 </template>
 

@@ -2,7 +2,7 @@
 	<div>
 		{{task.theme}}
 		<div v-show="!show">
-			<table>
+			<table  class="pure-table">
 				<thead>
 					<th>タイトル</th>
 					<th>内容</th>
@@ -79,6 +79,5 @@
 	}
 </script>
 
-<style>
-
+<style scoped>
 </style>
