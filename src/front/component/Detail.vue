@@ -4,20 +4,26 @@
 		<p>タスク内容</p>
 		<p>開始：{{project.date}}</p>
 		<textarea placeholder="内容" v-bind:value="project.summary" v-on:change="editSummary"></textarea>
-		<button v-on:click="saveSummary">+</button>
+		<button v-on:click="saveSummary">
+			<i class="tiny material-icons">edit</i>
+		</button>
 
 		<ul>
 			<li v-for="log in project.log">{{log}}</li>
 			<li>
 				<textarea v-model="log_txt"></textarea>
-				<button v-on:click='addLogTxt'>+</button>
+				<button v-on:click='addLogTxt'>
+					<i class="tiny material-icons">edit</i>
+				</button>
 			</li>
 		</ul>
 		<ul>
 			<li v-for="ref in project.ref">{{ref}}</li>
 			<li>
 				<textarea v-model="ref_txt"></textarea>
-				<button v-on:click='addRefTxt'>+</button>
+				<button v-on:click='addRefTxt'>
+					<i class="tiny material-icons">edit</i>
+				</button>
 			</li>
 		</ul>
 

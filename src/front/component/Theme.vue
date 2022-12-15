@@ -1,6 +1,8 @@
 <template>
 	<div>
-		<input type="button" value="プロジェクト追加" v-on:click="save"/>
+		<button value="" v-on:click="save">
+			<i class="tiny material-icons">create_new_folder</i>
+		</button>
 		<input type="text" v-model="theme_title"/>
 		<ul>
 			<li v-for="item in list">

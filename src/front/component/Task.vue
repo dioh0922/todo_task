@@ -14,14 +14,20 @@
 						<td>{{item.title}}</td>
 						<td><p v-html="replaceCrlf(item.summary)"></p></td>
 						<td>{{item.date}}</td>
-						<td><button v-on:click="openTask(item)">詳細</button></td>
+						<td>
+							<button v-on:click="openTask(item)">
+								<i class="tiny material-icons">open_in_new</i>
+							</button>
+					</td>
 					</tr>
 				</tbody>
 			</table>
 			<div>
 				<textarea v-model="task_title" placeholder="タイトルを入力"></textarea>
 				<textarea v-model="summary" placeholder="タスク概要"></textarea>
-				<button v-on:click="addTask">追加</button>
+				<button v-on:click="addTask">
+					<i class="tiny material-icons">add_circle</i>
+				</button>
 			</div>
 		</div>
 
