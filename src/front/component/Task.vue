@@ -1,7 +1,7 @@
 <template>
 	<div>
 		{{task.theme}}
-		<div v-show="!show">
+		<div v-show="!status.disp">
 			<table  class="pure-table">
 				<thead>
 					<th>タイトル</th>
@@ -15,7 +15,7 @@
 						<td><p v-html="replaceCrlf(item.summary)"></p></td>
 						<td>{{item.date}}</td>
 						<td>
-							<button v-on:click="openTask(item)">
+							<button v-on:click="$emit('open-task', item)">
 								<i class="tiny material-icons">open_in_new</i>
 							</button>
 					</td>
@@ -31,9 +31,9 @@
 			</div>
 		</div>
 
-		<Detail v-show="show" v-bind:project="open_obj"
-		v-on:add-log='addLog'
-		v-on:add-ref='addRef'
+		<Detail v-show="status.disp" v-bind:project="obj"
+		v-on:add-log="$emit('add-log', $event)"
+		v-on:add-ref="$emit('add-ref', $event)"
 		v-on:edit-summary='$emit("edit-summary", $event)'/>
 	</div>
 </template>
@@ -41,7 +41,7 @@
 <script>
 	import Detail from "./Detail.vue";
 	export default {
-		props:["task"],
+		props:["task", "status", "obj"],
 		methods:{
 			replaceCrlf(str){
 				return str.replace("\n", "<br>");
@@ -51,26 +51,11 @@
 				this.task_title = "";
 				this.summary = "";
 			},
-			openTask(e){
-				this.open_obj = e;
-				this.show = true;
-			},
-			addLog(e){
-				this.$emit("add-log", e);
-				this.open_obj.log.push(e.log);
-			},
-			addRef(e){
-				this.$emit("add-ref", e);
-				this.open_obj.ref.push(e.ref);
-			}
 		},
 		data(){
 			return {
 				task_title: "",
 				summary: "",
-				open_obj:{
-				},
-				show:false
 			};
 		},
 		components:{

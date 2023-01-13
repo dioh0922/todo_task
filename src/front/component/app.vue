@@ -1,7 +1,10 @@
 <template>
 	<div>
 		<Theme v-bind:list="theme" v-on:select-theme="getTaskList" v-on:add-theme="addTheme"></Theme>
-		<Task v-bind:task="task" v-on:add-task="addTask" v-on:add-log="addLog" v-on:add-ref="addRef" v-on:edit-summary="editSummary"></Task>
+		<Task v-bind:task="task" v-bind:status="status" v-bind:obj="edit_obj"
+		v-on:add-task="addTask" v-on:add-log="addLog" v-on:add-ref="addRef"
+		v-on:edit-summary="editSummary" v-on:open-task="openTask"
+		></Task>
 	</div>
 </template>
 
@@ -36,6 +39,7 @@
 			this.getTaskList(this.task.theme);
 		},
 		getTaskList(e){
+			this.status.disp = false;
 			this.task.theme = e;
 			axios.get("./Task/"+e).then(res => {
 				this.task.list = res.data;
@@ -52,6 +56,7 @@
 			});
 		},
 		addLog(e){
+			this.edit_obj.log.push(e.log);
 			let request = e;
 			request.theme = this.task.theme;
 			axios.put("./Log", request).then(res => {
@@ -63,6 +68,7 @@
 			});
 		},
 		addRef(e){
+			this.edit_obj.ref.push(e.ref);
 			let request = e;
 			request.theme = this.task.theme;
 			axios.put("./Ref", request).then(res => {
@@ -83,11 +89,22 @@
 			}).catch(er => {
 
 			});
+		},
+		openTask(e){
+			this.edit_obj = e;
+			this.status.disp = true;
 		}
 	},
  	data(){
  		return {
 			theme: [],
+			edit_obj:{
+				log:[],
+				ref:[]
+			},
+			status:{
+				disp: false
+			},
 			task: {
 				list: [],
 				theme:""
