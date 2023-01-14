@@ -1,15 +1,19 @@
 <template>
-	<div>
-		<button value="" v-on:click="save">
-			<i class="tiny material-icons">create_new_folder</i>
-		</button>
-		<input type="text" v-model="theme_title"/>
-		<div class="pure-menu pure-menu-horizontal">
-			<ul class="pure-menu-list">
-				<li class="pure-menu-item" v-for="item in list">
-					<a class="pure-menu-link" v-on:click.prevent="$emit('select-theme', item)">{{item}}</a>
-				</li>
-			</ul>
+	<div id="nav" class="pure-u">
+		<div class="nav-inner">
+			<div class="pure-menu">
+				<ul class="pure-menu-list">
+					<li class="pure-menu-item">
+						<input type="text" class="theme-title" v-model="theme_title"/>
+						<button value="" v-on:click="save">
+							<i class="tiny material-icons">create_new_folder</i>
+						</button>
+					</li>
+					<li class="pure-menu-item" v-for="item in list">
+						<a class="pure-menu-link" v-on:click.prevent="$emit('select-theme', item)">{{item}}</a>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </template>
@@ -36,6 +40,13 @@
  }
 </script>
 
-<style>
-
+<style scoped>
+	.theme-title{
+		width:80%;
+	}
+	#nav{
+		margin-left: -500px;
+		width: 150px;
+		height: 100%;
+	}
 </style>

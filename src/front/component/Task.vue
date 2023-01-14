@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div id="list" class="pure-u-1">
 		{{task.theme}}
 		<div v-show="!status.disp">
 			<table  class="pure-table">
@@ -68,4 +68,9 @@
 </script>
 
 <style scoped>
+	#list{
+		width: 100%;
+		height: 33%;
+		border-bottom: 1px solid #ddd;
+	}
 </style>
