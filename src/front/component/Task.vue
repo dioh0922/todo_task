@@ -18,17 +18,20 @@
 							<button v-on:click="$emit('open-task', item)">
 								<i class="tiny material-icons">open_in_new</i>
 							</button>
-					</td>
+						</td>
+					</tr>
+					<tr>
+						<td><textarea v-model="task_title" placeholder="タイトルを入力"></textarea></td>
+						<td><textarea v-model="summary" placeholder="タスク概要"></textarea></td>
+						<td></td>
+						<td>
+							<button v-on:click="addTask">
+								<i class="tiny material-icons">add_circle</i>
+							</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>
-			<div>
-				<textarea v-model="task_title" placeholder="タイトルを入力"></textarea>
-				<textarea v-model="summary" placeholder="タスク概要"></textarea>
-				<button v-on:click="addTask">
-					<i class="tiny material-icons">add_circle</i>
-				</button>
-			</div>
 		</div>
 
 		<Detail v-show="status.disp" v-bind:project="obj"
