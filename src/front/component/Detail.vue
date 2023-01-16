@@ -30,9 +30,10 @@
 			<div class="pure-u-1-2">
 				<h2>参考文献</h2>
 				<ul>
-					<li v-for="ref in project.ref">{{ref}}</li>
+					<li v-for="ref in project.ref">{{ref.txt}}:{{ref.url}}</li>
 					<li>
-						<textarea v-model="ref_txt"></textarea>
+						<textarea v-model="ref.url"></textarea>
+						<textarea v-model="ref.txt"></textarea>
 						<button v-on:click='addRefTxt'>
 							<i class="tiny material-icons">edit</i>
 						</button>
@@ -58,7 +59,7 @@
 			 this.log_txt = "";
 		 },
 		 addRefTxt(){
-			 this.$emit("add-ref", {proj_id:this.project._id, ref: this.ref_txt});
+			 this.$emit("add-ref", {proj_id:this.project._id, ref: this.ref});
 			 this.ref_txt = "";
 		 }
 	 },
@@ -66,7 +67,10 @@
  		return {
 			summary:"",
 			log_txt:"",
-			ref_txt:"",
+			ref:{
+				url:"",
+				txt:""
+			}
  		};
  	}
  }
