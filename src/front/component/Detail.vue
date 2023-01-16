@@ -1,32 +1,45 @@
 <template>
-	<div>
-		<h1>{{project.title}}</h1>
-		<p>タスク内容</p>
-		<p>開始：{{project.date}}</p>
-		<textarea placeholder="内容" v-bind:value="project.summary" v-on:change="editSummary"></textarea>
-		<button v-on:click="saveSummary">
-			<i class="tiny material-icons">edit</i>
-		</button>
+	<div class="detail-form">
+		<div id="detail-container" class="pure-form">
+			<div class="pure-u-1-1">
+				<h1>{{project.title}}</h1>
+				<p>タスク内容</p>
+				<p>開始：{{project.date}}</p>
+				<div class="pure-u-1-1">
+					<textarea cols="40" rows="10" placeholder="内容" v-bind:value="project.summary" v-on:change="editSummary"></textarea>
+				</div>
+				<div>
+					<button v-on:click="saveSummary">
+						<i class="tiny material-icons">edit</i>
+					</button>
+				</div>
+			</div>
 
-		<ul>
-			<li v-for="log in project.log">{{log}}</li>
-			<li>
-				<textarea v-model="log_txt"></textarea>
-				<button v-on:click='addLogTxt'>
-					<i class="tiny material-icons">edit</i>
-				</button>
-			</li>
-		</ul>
-		<ul>
-			<li v-for="ref in project.ref">{{ref}}</li>
-			<li>
-				<textarea v-model="ref_txt"></textarea>
-				<button v-on:click='addRefTxt'>
-					<i class="tiny material-icons">edit</i>
-				</button>
-			</li>
-		</ul>
-
+			<div class="pure-u-1-2">
+				<h2>内容メモ</h2>
+				<ul>
+					<li v-for="log in project.log">{{log}}</li>
+					<li>
+						<textarea v-model="log_txt"></textarea>
+						<button v-on:click='addLogTxt'>
+							<i class="tiny material-icons">edit</i>
+						</button>
+					</li>
+				</ul>
+			</div>
+			<div class="pure-u-1-2">
+				<h2>参考文献</h2>
+				<ul>
+					<li v-for="ref in project.ref">{{ref}}</li>
+					<li>
+						<textarea v-model="ref_txt"></textarea>
+						<button v-on:click='addRefTxt'>
+							<i class="tiny material-icons">edit</i>
+						</button>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -59,6 +72,12 @@
  }
 </script>
 
-<style>
-
+<style scoped>
+.detail-form{
+	border: solid #B4B4B4;
+	background-color: #EEEEFF;
+}
+#detail-container{
+	margin:20px;
+}
 </style>

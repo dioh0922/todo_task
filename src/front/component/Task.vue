@@ -20,7 +20,7 @@
 							</button>
 						</td>
 					</tr>
-					<tr>
+					<tr v-show="task.theme != '' ">
 						<td><textarea v-model="task_title" placeholder="タイトルを入力"></textarea></td>
 						<td><textarea v-model="summary" placeholder="タスク概要"></textarea></td>
 						<td></td>
@@ -69,6 +69,7 @@
 
 <style scoped>
 	#list{
+		margin-left: 20px;
 		width: 100%;
 		height: 33%;
 		border-bottom: 1px solid #ddd;
