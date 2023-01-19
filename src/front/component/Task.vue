@@ -1,6 +1,6 @@
 <template>
 	<div id="list" class="pure-u-1">
-		{{task.theme}}
+		<h4>{{task.theme}}</h4>
 		<div v-show="!status.disp">
 			<table class="pure-table">
 				<thead>
