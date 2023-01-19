@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="content">
 		<Theme v-bind:list="theme" v-on:select-theme="getTaskList" v-on:add-theme="addTheme"></Theme>
 		<Task v-bind:task="task" v-bind:status="status" v-bind:obj="edit_obj"
 		v-on:add-task="addTask" v-on:add-log="addLog" v-on:add-ref="addRef"
@@ -120,5 +120,7 @@
 </script>
 
 <style scoped>
-
+ .content{
+	 display: block;
+ }
 </style>

@@ -90,6 +90,7 @@
 
 <style scoped>
 .detail-form{
+	width: 60%;
 	border: solid #B4B4B4;
 	background-color: #EEEEFF;
 }

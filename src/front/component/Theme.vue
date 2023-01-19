@@ -45,6 +45,14 @@
 		width:80%;
 	}
 	#nav{
+		position: fixed;
+    top: 0;
+    bottom: 0;
+    overflow: auto;
+		background: rgb(37, 42, 58);
+    text-align: center;
+		padding-top: 10px;
+		color: white;
 		margin-left: -500px;
 		width: 150px;
 		height: 100%;

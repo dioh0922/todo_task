@@ -2,7 +2,7 @@
 	<div id="list" class="pure-u-1">
 		{{task.theme}}
 		<div v-show="!status.disp">
-			<table  class="pure-table">
+			<table class="pure-table">
 				<thead>
 					<th>タイトル</th>
 					<th>内容</th>
@@ -69,9 +69,12 @@
 
 <style scoped>
 	#list{
-		margin-left: 20px;
+		overflow: auto;
+		top:0;
+		bottom: 0;
+		position: fixed;
+		margin-left: -320px;
 		width: 100%;
-		height: 33%;
-		border-bottom: 1px solid #ddd;
+		height: 100%;
 	}
 </style>
