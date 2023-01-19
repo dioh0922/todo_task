@@ -57,7 +57,7 @@ function server(req, res){
 				let result = [];
 				switch(req.method){
 					case "GET":
-						let query = url_parts.pathname.replace("/Task/", "");
+						let query = decodeURI(url_parts.pathname.replace("/Task/", ""));
 						async function getTask(){
 							const task = new Task("task");
 							try{

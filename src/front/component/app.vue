@@ -41,7 +41,8 @@
 		getTaskList(e){
 			this.status.disp = false;
 			this.task.theme = e;
-			axios.get("./Task/"+e).then(res => {
+			let query = encodeURI(e);
+			axios.get("./Task/"+query).then(res => {
 				this.task.list = res.data;
 			}).catch(er => {
 			});
