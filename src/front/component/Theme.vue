@@ -54,7 +54,10 @@
 		padding-top: 10px;
 		color: white;
 		margin-left: -500px;
-		width: 150px;
+		width: 220px;
 		height: 100%;
+	}
+	.nav-inner{
+		margin: 2%;
 	}
 </style>
