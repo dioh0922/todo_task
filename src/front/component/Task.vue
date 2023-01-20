@@ -73,7 +73,7 @@
 		top:0;
 		bottom: 0;
 		position: fixed;
-		margin-left: -320px;
+		margin-left: -250px;
 		width: 100%;
 		height: 100%;
 	}
