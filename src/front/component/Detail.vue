@@ -1,8 +1,8 @@
 <template>
-	<div class="detail-form pure-u-16-24">
+	<div class="detail-form pure-u-18-24">
 		<div id="detail-container" class="pure-form">
 			<div class="pure-u-1-1">
-				<h1>{{project.title}}</h1>
+				<h2>{{project.title}}</h2>
 				<p>タスク内容</p>
 				<p>開始：{{project.date}}</p>
 				<div class="pure-u-1-1">
@@ -44,8 +44,8 @@
 							</thead>
 							<tbody>
 								<tr v-for="ref in project.ref">
-									<td><p>{{ref.txt}}</p></td>
-									<td><p>{{ref.url}}</p></td>
+									<td><div class="ref-disp">{{ref.txt}}</div></td>
+									<td><div class="ref-disp">{{ref.url}}</div></td>
 								</tr>
 								<tr>
 									<td><input class="txt-form" type="text" v-model="ref.txt"/></td>
@@ -113,14 +113,20 @@
 }
 .detail-txt{
 	border: dashed #C4C4C4;
-	margin: 2%;
+	margin: 1%;
 }
 .txt-form{
 }
 .detail-form-area{
-	margin: 10%;
+	margin: 1%;
 }
 .log-area{
 	margin-bottom: 10px;
+}
+.ref-disp{
+	width:100%;
+	inline-size: 100%;
+	overflow-wrap: break-word;
+	word-break: break-all
 }
 </style>
