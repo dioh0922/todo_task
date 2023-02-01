@@ -3,6 +3,7 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "forever start ./src/svr/main.js",
 		"restart": "forever restart ./src/svr/main.js",
+		"stop": "forever stop ./src/svr/main.js",
 		"dev": "webpack --mode development",
 		"prod": "webpack --mode production"
 	},
