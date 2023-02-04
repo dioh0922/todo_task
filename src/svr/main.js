@@ -214,7 +214,7 @@ const https_svr = https.createServer(options, (req, res) => {
 	server(req, res);
 });
 
-https_svr.listen(8443, hostname, (response) => {
+https_svr.listen(process.env.NODE_HTTPS_PORT, hostname, (response) => {
 	//listenは開くときの中身
 	console.log("https start");
 });
@@ -223,7 +223,7 @@ const http_svr = http.createServer(options, (req, res) => {
 	server(req, res);
 });
 
-http_svr.listen(8080, hostname, (response) => {
+http_svr.listen(process.env.NODE_HTTP_PORT, hostname, (response) => {
 	//listenは開くときの中身
 	console.log("http start");
 });
