@@ -4,7 +4,7 @@ require("dotenv").config({path:ENV_PATH});
 
 const https = require("https");
 const http = require("http");
-const hostname = "localhost";
+const hostname = process.env.NODE_HOST;
 const fs = require("fs");
 const url = require("url");
 const querystring = require('querystring');
